@@ -13,7 +13,7 @@
  * writing app.js a little simpler to work with.
  */
 
-var Engine = (function(global) {
+var Engine = (function (global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
@@ -77,9 +77,82 @@ var Engine = (function(global) {
      * functionality this way (you could just implement collision detection
      * on the entities themselves within your app.js file).
      */
+
+     // Function to verify collision
+    function checkCollisions() {
+        // Improving the precision of collision
+        var height = player.height;
+        height = 80;
+        var width = player.width;
+        width = 70;
+        var positionX = player.positionX;
+        var positionY = player.positionY;
+
+        // Variables enemies
+        var enemie1 = allEnemies[0];
+        var enemie2 = allEnemies[1];
+        var enemie3 = allEnemies[2];
+        var enemie4 = allEnemies[3];
+        var enemie5 = allEnemies[4];
+
+        //collision object [0]
+        if (positionX + (height && width) > enemie1.positionX &&
+            positionX < (height && width) + enemie1.positionX &&
+            positionY + (height && width) > enemie1.positionY &&
+            positionY < (height && width) + enemie1.positionY) {
+
+            player.positionX = player.routeX[Math.floor(Math.random() * Math.floor(5))];
+            player.positionY = player.routeY[Math.floor(Math.random() * Math.floor(2))];
+
+        }
+
+        //collision object [1]
+        if (positionX + (height && width) > enemie2.positionX &&
+            positionX < (height && width) + enemie2.positionX &&
+            positionY + (height && width) > enemie2.positionY &&
+            positionY < (height && width) + enemie2.positionY) {
+
+            player.positionX = player.routeX[Math.floor(Math.random() * Math.floor(5))];
+            player.positionY = player.routeY[Math.floor(Math.random() * Math.floor(2))];
+
+        }
+
+        //collision object [2]
+        if (positionX + (height && width) > enemie3.positionX &&
+            positionX < (height && width) + enemie3.positionX &&
+            positionY + (height && width) > enemie3.positionY &&
+            positionY < (height && width) + enemie3.positionY) {
+
+            player.positionX = player.routeX[Math.floor(Math.random() * Math.floor(5))];
+            player.positionY = player.routeY[Math.floor(Math.random() * Math.floor(2))];
+
+        }
+
+        //collision object [3]
+        if (positionX + (height && width) > enemie4.positionX &&
+            positionX < (height && width) + enemie4.positionX &&
+            positionY + (height && width) > enemie4.positionY &&
+            positionY < (height && width) + enemie4.positionY) {
+
+            player.positionX = player.routeX[Math.floor(Math.random() * Math.floor(5))];
+            player.positionY = player.routeY[Math.floor(Math.random() * Math.floor(2))];
+        }
+
+        //collision object [4]
+        if (positionX + (height && width) > enemie5.positionX &&
+            positionX < (height && width) + enemie5.positionX &&
+            positionY + (height && width) > enemie5.positionY &&
+            positionY < (height && width) + enemie5.positionY) {
+
+            player.positionX = player.routeX[Math.floor(Math.random() * Math.floor(5))];
+            player.positionY = player.routeY[Math.floor(Math.random() * Math.floor(2))];
+
+        }
+    }
+
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -90,7 +163,7 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
-        allEnemies.forEach(function(enemy) {
+        allEnemies.forEach(function (enemy) {
             enemy.update(dt);
         });
         player.update();
@@ -107,19 +180,19 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
-            ],
+            'images/water-block.png',   // Top row is water
+            'images/stone-block.png',   // Row 1 of 3 of stone
+            'images/stone-block.png',   // Row 2 of 3 of stone
+            'images/stone-block.png',   // Row 3 of 3 of stone
+            'images/grass-block.png',   // Row 1 of 2 of grass
+            'images/grass-block.png'    // Row 2 of 2 of grass
+        ],
             numRows = 6,
             numCols = 5,
             row, col;
-        
+
         // Before drawing, clear existing canvas
-        ctx.clearRect(0,0,canvas.width,canvas.height)
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
 
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
@@ -149,7 +222,7 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        allEnemies.forEach(function(enemy) {
+        allEnemies.forEach(function (enemy) {
             enemy.render();
         });
 
