@@ -1,13 +1,15 @@
 // Enemies our player must avoid
 var Enemy = function () {
 
+    // Add height and width to collision
+    this.width = 100;
+    width = 80
+    this.height = 150;
+    height = 130;
+
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.positionX = -100;
-
-    // add height and width to collision
-    this.width = 100;
-    this.height = 150;
 
     //random route to enemies create
     this.routeY = [60, 150, 230];
@@ -45,6 +47,11 @@ Enemy.prototype.render = function () {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function () {
+
+    // Add height and width to collision
+    this.width = 100;
+    this.height = 150;
+
     // Route to create random
     this.routeY = [330, 410];
     this.routeX = [0, 100, 200, 300, 400];
@@ -53,17 +60,18 @@ var Player = function () {
     this.positionY = this.routeY[Math.floor(Math.random() * Math.floor(2))];
     this.positionX = this.routeX[Math.floor(Math.random() * Math.floor(5))];
 
-    // add height and width to collision
-    this.width = 100;
-    this.height = 150;
-
-    // render character
+    // Render character
     this.sprite = 'images/char-boy.png';
 };
 
 Player.prototype.update = function () {
-    this.winner();
-    this.collision();
+
+    // Checking if won
+    if (this.positionY == 0) {
+        this.positionX = this.routeX[Math.floor(Math.random() * Math.floor(5))];
+        this.positionY = this.routeY[Math.floor(Math.random() * Math.floor(2))];
+    }
+
 };
 
 Player.prototype.render = function () {
@@ -74,7 +82,7 @@ Player.prototype.handleInput = function () {
 
     var code = event.keyCode;
 
-    //Route Left
+    //MOVE Left
     if (code == 37 && this.positionX == 200) {
         this.positionX = 100;
     }
@@ -83,7 +91,7 @@ Player.prototype.handleInput = function () {
         this.positionX = 0;
     };
 
-    //Route Back Left
+    //MOVE Back Left
     if (code == 39 && this.positionX == 0) {
         this.positionX = 100;
     }
@@ -92,7 +100,7 @@ Player.prototype.handleInput = function () {
         this.positionX = 200;
     }
 
-    //Route Right
+    //MOVE Right
     else if (code == 39 && this.positionX == 200) {
         this.positionX = 300;
     }
@@ -101,7 +109,7 @@ Player.prototype.handleInput = function () {
         this.positionX = 400;
     }
 
-    //Route Back Right
+    //MOVE Back Right
     if (code == 37 && this.positionX == 400) {
         this.positionX = 300;
     }
@@ -110,7 +118,7 @@ Player.prototype.handleInput = function () {
         this.positionX = 200;
     };
 
-    //Route Y UP
+    //MOVE UP
     if (code == 38 && this.positionY == 410) {
         this.positionY = 330;
     }
@@ -131,7 +139,7 @@ Player.prototype.handleInput = function () {
         this.positionY = 0;
     };
 
-    //Route Y Down
+    //MOVE DOWN
     if (code == 40 && this.positionY == 70) {
         this.positionY = 160;
     }
@@ -149,82 +157,10 @@ Player.prototype.handleInput = function () {
     };
 };
 
-// function collision
-Player.prototype.collision = function () {
-
-    var height = this.height;
-    var width = this.width;
-    var positionX = this.positionX;
-    var positionY = this.positionY;
-
-    //collision object [0]
-    if (positionX + (height && width) > allEnemies[0].positionX &&
-        positionX < (height && width) + allEnemies[0].positionX &&
-        positionY + (height && width) > allEnemies[0].positionY &&
-        positionY < (height && width) + allEnemies[0].positionY) {
-
-        this.positionX = this.routeX[Math.floor(Math.random() * Math.floor(5))];
-        this.positionY = this.routeY[Math.floor(Math.random() * Math.floor(2))];
-
-    }
-
-    //collision object [1]
-    if (positionX + (height && width) > allEnemies[1].positionX &&
-        positionX < (height && width) + allEnemies[1].positionX &&
-        positionY + (height && width) > allEnemies[1].positionY &&
-        positionY < (height && width) + allEnemies[1].positionY) {
-
-        this.positionX = this.routeX[Math.floor(Math.random() * Math.floor(5))];
-        this.positionY = this.routeY[Math.floor(Math.random() * Math.floor(2))];
-
-    }
-
-    //collision object [2]
-    if (positionX + (height && width) > allEnemies[2].positionX &&
-        positionX < (height && width) + allEnemies[2].positionX &&
-        positionY + (height && width) > allEnemies[2].positionY &&
-        positionY < (height && width) + allEnemies[2].positionY) {
-
-        this.positionX = this.routeX[Math.floor(Math.random() * Math.floor(5))];
-        this.positionY = this.routeY[Math.floor(Math.random() * Math.floor(2))];
-
-    }
-
-    //collision object [3]
-    if (positionX + (height && width) > allEnemies[3].positionX &&
-        positionX < (height && width) + allEnemies[3].positionX &&
-        positionY + (height && width) > allEnemies[3].positionY &&
-        positionY < (height && width) + allEnemies[3].positionY) {
-
-        this.positionX = this.routeX[Math.floor(Math.random() * Math.floor(5))];
-        this.positionY = this.routeY[Math.floor(Math.random() * Math.floor(2))];
-
-    }
-
-    //collision object [4]
-    if (positionX + (height && width) > allEnemies[4].positionX &&
-        positionX < (height && width) + allEnemies[4].positionX &&
-        positionY + (height && width) > allEnemies[4].positionY &&
-        positionY < (height && width) + allEnemies[4].positionY) {
-
-        this.positionX = this.routeX[Math.floor(Math.random() * Math.floor(5))];
-        this.positionY = this.routeY[Math.floor(Math.random() * Math.floor(2))];
-
-    }
-}
-
-// function winner - if you can get in the water
-Player.prototype.winner = function () {
-    if (this.positionY == 0) {
-        this.positionX = this.routeX[Math.floor(Math.random() * Math.floor(5))];
-        this.positionY = this.routeY[Math.floor(Math.random() * Math.floor(2))];
-    }
-}
-
-
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+
 var allEnemies = [new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy()];
 var player = new Player();
 
